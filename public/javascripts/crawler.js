@@ -1,45 +1,28 @@
-const {Builder, By, Key, until} = require("selenium-webdriver");
+const {Builder, By, Key, until, WebDriver} = require("selenium-webdriver");
 const _ = require('lodash');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const { sortedLastIndexOf } = require("lodash");
 
 
-(async () => {
-
-    var newPromise = new Promise((resolve, reject) => {
-        
-        let result = (async function enterWebsite() {
-            let driver = await new Builder().forBrowser('chrome').build();
-            let dataDict = {'trb_per_g' : 0, 'ast_per_g' : 0, 'blk_per_g' : 0, 'stl_per_g' : 0, 'fg3_per_g' : 0, 'fg_per_g' : 0,'fga_per_g' : 0, 'ft_per_g' : 0,'fta_per_g' : 0, 'pts_per_g': 0};
-            let playerList = ['Lebron James', "Anthony Davis", "James Harden"]; 
-            await driver.get('https://www.basketball-reference.com/');
-            dataDict = await runForLoop(dataDict, driver, playerList);
-            // dataDict = await calculateStats(dataDict);
-            dataDict = await calculateStats(dataDict);
-            return await dataDict
-            //await console.log("Did this run?");
-            //await driver.quit();   
-           // return await dataDict;   
-        })();
-        resolve(result);
-    });
-    
-    await newPromise.then(async (result) => {
-        console.log(await result);
-    }
-    )
-    
-})();
+async function enterWebsite() {
+  let driver = await new Builder().forBrowser('chrome').build();
+  let dataDict = {'trb_per_g' : 0, 'ast_per_g' : 0, 'blk_per_g' : 0, 'stl_per_g' : 0, 'fg3_per_g' : 0, 'fg_per_g' : 0,'fga_per_g' : 0, 'ft_per_g' : 0,'fta_per_g' : 0, 'pts_per_g': 0};
+  let playerList = ['Lebron James', "Anthony Davis", "James Harden"]; 
+  await driver.get('https://www.basketball-reference.com/');
+  dataDict = await runForLoop(dataDict, driver, playerList);
+  // dataDict = await calculateStats(dataDict);
+  dataDict = await calculateStats(dataDict);
+  console.log(dataDict);
+  console.log("Did this run?");
+  await driver.quit();
+}
 
 // Synchronous Asynchronous for loop for reading players' stats
 async function runForLoop(dataDict, driver, playerList) {
-    
-    let playerListLength = playerList.length;
-
-    for (let i = 0, p = Promise.resolve(); i < playerListLength; i++) {
-        p = p.then(_ => new Promise(async resolve => {
-        let player = playerList[i];
+    await Promise.all(
+      playerList.map( async (player) => {
+        
         await driver.findElement(By.name('search')).sendKeys(player, Key.RETURN);
         let xpath = "//div[@class='search-item-name']/strong/a";
 
@@ -50,23 +33,22 @@ async function runForLoop(dataDict, driver, playerList) {
             let extraStep = await driver.findElement(By.xpath(xpath));
             await extraStep.click();
         }
-        catch{
-            console.log('Go direct to the page');
+        catch (e){
+          console.log(e)
+          console.log('Go direct to the page');
         }
-
-        await crawlStats(await driver.getCurrentUrl(), dataDict);
-        console.log(dataDict);
-        resolve();
-    }
-    ));
-}
-    return await dataDict;
+        let currentURL = await driver.getCurrentUrl();
+        console.log(currentURL)
+        await crawlStats(currentURL, dataDict);
+      })
+    )
 }
 
 
 async function crawlStats(url, dataDict){
+  console.log(`Crawling stats of ${url}`);
     const html = await axios.get(url);
-        let $ = await cheerio.load(html.data);
+        let $ = cheerio.load(html.data);
         let $dataTable = $("#per_game");
         let gamesPlayed = 0;
         let dataYear = 2021;
@@ -78,7 +60,7 @@ async function crawlStats(url, dataDict){
         }   
         
         let dataEntries = dataRow.children();
-        await gatherStats(dataEntries, dataDict);
+        gatherStats(dataEntries, dataDict);
 }
 
 function calculateStats(dataDict) {
@@ -119,3 +101,6 @@ function gatherStats(entries, dataDict) {
 function unravelChild(parent) {
     return parent.children[0].children[0].data;
 }
+
+
+enterWebsite();
