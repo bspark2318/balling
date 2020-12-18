@@ -20,10 +20,9 @@ async function enterWebsite() {
 
 // Synchronous Asynchronous for loop for reading players' stats
 async function runForLoop(dataDict, driver, playerList) {
-    await Promise.all(
-      playerList.map( async (player) => {
-        
-        await driver.findElement(By.name('search')).sendKeys(player, Key.RETURN);
+    for (let i = 0; i < playerList; i++) {
+      let player = playerList[num];
+      await driver.findElement(By.name('search')).sendKeys(player, Key.RETURN);
         let xpath = "//div[@class='search-item-name']/strong/a";
 
         await driver.wait(until.elementLocated(By.name('search')));
@@ -40,8 +39,7 @@ async function runForLoop(dataDict, driver, playerList) {
         let currentURL = await driver.getCurrentUrl();
         console.log(currentURL)
         await crawlStats(currentURL, dataDict);
-      })
-    )
+    }
 }
 
 
