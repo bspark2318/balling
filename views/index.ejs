@@ -10,22 +10,25 @@
       <h1 class="welcome-title d-flex justify-content-center">See who has an advantage!</h1>
       <p class="d-flex justify-content-center">Welcome to <%= title %></p>
 
-      <div class="row">
-        <div class="col-sm-5" style="background-color: white;">
-          <% if (numPlayers != 0) { %>
-            <%- include("./functions/createInputs"); %>
-          <% } %>
-        </div>
 
-        <div class="col-sm-2" style="background-color: yellow;">hi</div>
-        <div class="col-sm-5" style="background-color: white;">
-          <% if (numPlayers != 0) { %>
-            <%- include("./functions/createInputs"); %>
-          <% } %>
+      <form action="/" method="POST">     
+        <div class="row">
+          <div class="col-sm-4" style="background-color: white;">
+            <% if (numPlayers != 0) { %>
+              <%- include("./functions/createInputs"); %>
+            <% } %>
+          </div>
+          <div class="col-sm-1">hi</div>  
+          <div class="col-sm-2" style="background-color: yellow;">hi</div>
+          <div class="col-sm-1" >hi</div>
+          <div class="col-sm-4" style="background-color: white;">
+            <% if (numPlayers != 0) { %>
+              <%- include("./functions/createInputs"); %>
+            <% } %>
+          </div>
+          
         </div>
-        
-      </div>
-        
+      </form>
 
     </div>
   </body>
