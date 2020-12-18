@@ -12,10 +12,10 @@ async function enterWebsite() {
   await driver.get('https://www.basketball-reference.com/');
   dataDict = await runForLoop(dataDict, driver, playerList);
   // dataDict = await calculateStats(dataDict);
-  dataDict = await calculateStats(dataDict);
-  console.log(dataDict);
-  console.log("Did this run?");
+  dataDict = calculateStats(dataDict);
+
   await driver.quit();
+  return dataDict;
 }
 
 // Synchronous Asynchronous for loop for reading players' stats
@@ -26,7 +26,6 @@ async function runForLoop(dataDict, driver, playerList) {
         let xpath = "//div[@class='search-item-name']/strong/a";
 
         await driver.wait(until.elementLocated(By.name('search')));
-        //await setTimeout(() => {console.log("clap")}, 2000);
 
         try { 
             let extraStep = await driver.findElement(By.xpath(xpath));
@@ -39,7 +38,6 @@ async function runForLoop(dataDict, driver, playerList) {
         let currentURL = await driver.getCurrentUrl();
         
         await crawlStats(currentURL, dataDict);
-        console.log(dataDict);
     }
     return dataDict;
 }
@@ -103,4 +101,4 @@ function unravelChild(parent) {
 }
 
 
-enterWebsite();
+enterWebsite().then( (result) =>  {console.log(result)});
