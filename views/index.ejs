@@ -2,6 +2,7 @@
 <html>
   <head>
     <%- include("./partials/head"); %>
+    <script src ="/javascripts/autocomplete.js"></script>
   </head>
   <body>
 
@@ -11,16 +12,16 @@
       <p class="d-flex justify-content-center">Welcome to <%= title %></p>
 
 
-      <form action="/" method="POST">     
+      <form autocomplete="off" action="/" >     
         <div class="row">
-          <div class="col-sm-4" style="background-color: white;">
+          <div class="col-sm-4" style="background-color: white; min-height: 100px;">
             <% if (numPlayers != 0) { %>
               <%- include("./functions/createInputs"); %>
             <% } %>
           </div>
-          <div class="col-sm-1">hi</div>  
+          <div class="col-sm-1"></div>  
           <div class="col-sm-2" style="background-color: yellow;">hi</div>
-          <div class="col-sm-1" >hi</div>
+          <div class="col-sm-1" ></div>
           <div class="col-sm-4" style="background-color: white;">
             <% if (numPlayers != 0) { %>
               <%- include("./functions/createInputs"); %>
@@ -32,5 +33,13 @@
 
     </div>
   </body>
+  <script>
+    // Autocomplete Forms
+    $(document).on("click", ".playerNameInput", (e) => {
+      let targetId = e.target.id;
+      let targetElement = document.getElementById(targetId);
+      autocomplete(targetElement);
+    }) 
+  </script>
 </html>
 

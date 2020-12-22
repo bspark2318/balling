@@ -1,9 +1,23 @@
+const _ = require('lodash');
+const axios = require('axios');
+const cheerio = require('cheerio');
 
+async function crawlStats(){
+    var names = [];  
+    const html = await axios.get("https://www.washingtonpost.com/graphics/2019/sports/nba-top-100-players-2019/");
+    let $ = cheerio.load(html.data);
+    let $names = await $(".player-name");
+    let nameLength = $names.length;
+    console.log(nameLength);
+    
+    for (let i = 0; i < nameLength; i++) {
+        let nameCapsule = $names[i];
+        let name = nameCapsule.children[0].data;
+        names.push(name); 
+    }
 
-[1,2,3,44,55,66,77].reduce( (p, _, i) =>
-    p.then(_=> new Promise(resolve => 
-        setTimeout(() => {
-            console.log(i);
-            resolve();
-        }, Math.random() * 1000 )
-        )), Promise.resolve()); 
+    console.log(names);
+  }
+
+crawlStats()
+

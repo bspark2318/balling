@@ -1,6 +1,8 @@
 <% for (let i=0; i < numPlayers ; i++) { %>
     <div class="">
-      <label for="playerName">Player Name:</label>
-      <input class="form-control" type="text" placeholder="Player Name" name="playerName" value=""> 
+      <div class="autocomplete">
+        <label for="playerName">Player Name:</label>
+        <input id=<%= "playerName_" + i %>  class="form-control playerNameInput" type="text" placeholder="Player Name" name="playerName" value=""> 
+      </div>
     </div>  
-  <% }; %>   
+<% }; %>   
