@@ -8,17 +8,25 @@ const { sortedLastIndexOf } = require("lodash");
 var bs = ["Ja Morant", "Jrue Holiday", "Kevin Durant", "Brandon Ingram", "Nikola Jokic", "D'Angelo Russel", "Blake Griffin", "Julius Randle", "Kevin Love", "Buddy Hield", "Gordon Hayward", "Tyler Herro", "DeMarcus Cousin"];
 var julien = ["Damian Lillard", "Shai Gilgeous-Alexander", "Jason Taytum", "Giannis Antetokounmpo", "Deandre Ayton", "Ben Simmons", "K OUbre Jr.", "Nikola Vucevic", "Malcom Brogdon", "Duncan Robinson", "TJ Warren", "Hassan Whiteside", "Joe Harris"];
 
-async function enterWebsite() {
-  let driver = await new Builder().forBrowser('chrome').build();
-  let dataDict = {'trb_per_g' : 0, 'ast_per_g' : 0, 'blk_per_g' : 0, 'stl_per_g' : 0, 'fg3_per_g' : 0, 'fg_per_g' : 0,'fga_per_g' : 0, 'ft_per_g' : 0,'fta_per_g' : 0, 'pts_per_g': 0};
-  let playerList = bs; 
-  await driver.get('https://www.basketball-reference.com/');
-  dataDict = await runForLoop(dataDict, driver, playerList);
-  // dataDict = await calculateStats(dataDict);
-  dataDict = calculateStats(dataDict);
+var testTeams = [bs, julien];
 
+exports.runStatDriver = async function (teams) {
+  let driver = await new Builder().forBrowser('chrome').build();
+  let dataDict; 
+  let playerList; 
+  let result = [];
+
+  await driver.get('https://www.basketball-reference.com/');
+  for (i =0 ; i < teams.length ; i ++ ) {
+        dataDict = {'trb_per_g' : 0, 'ast_per_g' : 0, 'blk_per_g' : 0, 'stl_per_g' : 0, 'fg3_per_g' : 0, 'fg_per_g' : 0,'fga_per_g' : 0, 'ft_per_g' : 0,'fta_per_g' : 0, 'pts_per_g': 0};
+        playerList = teams[i];
+        dataDict = await runForLoop(dataDict, driver, playerList);
+        // dataDict = await calculateStats(dataDict);
+        dataDict = calculateStats(dataDict);
+        result.push(dataDict);
+  }
   await driver.quit();
-  return dataDict;
+  return result;
 }
 
 // Synchronous Asynchronous for loop for reading players' stats
@@ -47,7 +55,6 @@ async function runForLoop(dataDict, driver, playerList) {
 
 
 async function crawlStats(url, dataDict){
-  console.log(`Crawling stats of ${url}`);
     const html = await axios.get(url);
         let $ = cheerio.load(html.data);
         let $dataTable = $("#per_game");
@@ -104,46 +111,6 @@ function unravelChild(parent) {
 }
 
 
-enterWebsite().then( (result) =>  {console.log(result)});
 
 
 
-
-
-
-var playerNames = [
-    'Kawhi Leonard',      'Giannis Antetokounmpo', 'Stephen Curry',
-    'LeBron James',       'James Harden',          'Nikola Jokic',
-    'Joel Embiid',        'Damian Lillard',        'Anthony Davis',
-    'Paul George',        'Rudy Gobert',           'Kyrie Irving',
-    'Draymond Green',     'Jimmy Butler',          'Karl-Anthony Towns',
-    'Russell Westbrook',  'Blake Griffin',         'LaMarcus Aldridge',
-    'Bradley Beal',       'Ben Simmons',           'Chris Paul',
-    'Pascal Siakam',      'Jrue Holiday',          'Al Horford',
-    'Kemba Walker',       'Khris Middleton',       'CJ McCollum',
-    'Luka Doncic',        'Kyle Lowry',            'Mike Conley',
-    'Nikola Vucevic',     'Clint Capela',          'Donovan Mitchell',
-    'DeMar DeRozan',      'Andre Drummond',        "De'Aaron Fox",
-    'Kristaps Porzingis', 'Victor Oladipo',        'Devin Booker',
-    'Kevin Love',         'Danilo Gallinari',      'Jamal Murray',
-    'Tobias Harris',      'Myles Turner',          'Steven Adams',
-    'Jayson Tatum',       'Buddy Hield',           'Otto Porter Jr.',
-    'Montrezl Harrell',   'Paul Millsap',          'John Collins',
-    'Lou Williams',       'Eric Bledsoe',          "D'Angelo Russell",
-    'Brook Lopez',        'Marc Gasol',            'Domantas Sabonis',
-    'Trae Young',         'Jaylen Brown',          'Klay Thompson',
-    'Lauri Markkanen',    'Serge Ibaka',           'Bojan Bogdanovic',
-    'Josh Richardson',    'Eric Gordon',           'Malcolm Brogdon',
-    'Derrick Favors',     'Gordon Hayward',        'Julius Randle',
-    'Robert Covington',   'Gary Harris',           'Zach LaVine',
-    'Brandon Ingram',     'P.J. Tucker',           'Thaddeus Young',
-    'Aaron Gordon',       'JJ Redick',             'Joe Ingles',
-    'Andrew Wiggins',     'Dejounte Murray',       'Spencer Dinwiddie',
-    'Jaren Jackson Jr.',  'Caris LeVert',          'Jonas Valanciunas',
-    'Deandre Ayton',      'Justise Winslow',       'Joe Harris',
-    'Harrison Barnes',    'Ricky Rubio',           'Reggie Jackson',
-    'Jusuf Nurkic',       'Danny Green',           'Jeremy Lamb',
-    'Patrick Beverley',   'Kyle Kuzma',            'Marcus Smart',
-    'Rudy Gay',           'Jeff Teague',           'Derrick White',
-    'Marvin Bagley III'];
-  

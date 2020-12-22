@@ -12,22 +12,24 @@
       <p class="d-flex justify-content-center">Welcome to <%= title %></p>
 
 
-      <form autocomplete="off" action="/" >     
+      <form autocomplete="off" action="/" method="POST">     
         <div class="row">
-          <div class="col-sm-4" style="background-color: white; min-height: 100px;">
+          <div class="col-sm-4" style="min-height: 100px;">
             <% if (numPlayers != 0) { %>
-              <%- include("./functions/createInputs"); %>
+              <%- include("./functions/createInputsColumnOne"); %>
             <% } %>
           </div>
           <div class="col-sm-1"></div>  
-          <div class="col-sm-2" style="background-color: yellow;">hi</div>
+          <div class="col-sm-2 justify-content-center d-flex" style="">
+            <input type="submit" class='btn btn-primary' style="height:40px; position:absolute; bottom:0;" value="Submit">
+          </div>
           <div class="col-sm-1" ></div>
-          <div class="col-sm-4" style="background-color: white;">
+          <div class="col-sm-4" style=" padding-bottom: 60px;">
             <% if (numPlayers != 0) { %>
-              <%- include("./functions/createInputs"); %>
+              <%- include("./functions/createInputsColumnTwo"); %>
             <% } %>
           </div>
-          
+        </div>
         </div>
       </form>
 
@@ -38,7 +40,7 @@
     $(document).on("click", ".playerNameInput", (e) => {
       let targetId = e.target.id;
       let targetElement = document.getElementById(targetId);
-      autocomplete(targetElement);
+      autocomplete(targetElement, playerNames);
     }) 
   </script>
 </html>

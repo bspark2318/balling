@@ -34,8 +34,7 @@ var playerNames = [
     'Rudy Gay',           'Jeff Teague',           'Derrick White',
     'Marvin Bagley III'];
 
-function autocomplete(inp) {
-    arr = playerNames
+function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -48,7 +47,7 @@ function autocomplete(inp) {
         currentFocus = -1;
         /*create a DIV element that will contain the items (values):*/
         a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("id", this.id + "_autocomplete-list");
         a.setAttribute("class", "autocomplete-items");
         /*append the DIV element as a child of the autocomplete container:*/
         this.parentNode.appendChild(a);
@@ -77,7 +76,7 @@ function autocomplete(inp) {
     });
     /*execute a function presses a key on the keyboard:*/
     inp.addEventListener("keydown", function(e) {
-        var x = document.getElementById(this.id + "autocomplete-list");
+        var x = document.getElementById(this.id + "_autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
           /*If the arrow DOWN key is pressed,
@@ -130,5 +129,5 @@ function autocomplete(inp) {
   document.addEventListener("click", function (e) {
       closeAllLists(e.target);
   });
-  }
+}
 
