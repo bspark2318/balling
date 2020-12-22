@@ -10,7 +10,7 @@ var julien = ["Damian Lillard", "Shai Gilgeous-Alexander", "Jason Taytum", "Gian
 
 var testTeams = [bs, julien];
 
-exports.runStatDriver = async function (teams) {
+async function runStatDriver (teams) {
   let driver = await new Builder().forBrowser('chrome').build();
   let dataDict; 
   let playerList; 
@@ -110,7 +110,4 @@ function unravelChild(parent) {
     return parent.children[0].children[0].data;
 }
 
-
-
-
-
+exports.runStatDriver = runStatDriver;
