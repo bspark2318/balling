@@ -1,33 +1,28 @@
 const {Builder, By, Key, until, WebDriver} = require("selenium-webdriver");
+const chrome = require('selenium-webdriver/chrome');
 const _ = require('lodash');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const { sortedLastIndexOf } = require("lodash");
 
-
-var bs = ["Ja Morant", "Jrue Holiday", "Kevin Durant", "Brandon Ingram", "Nikola Jokic", "D'Angelo Russel", "Blake Griffin", "Julius Randle", "Kevin Love", "Buddy Hield", "Gordon Hayward", "Tyler Herro", "DeMarcus Cousin"];
-var julien = ["Damian Lillard", "Shai Gilgeous-Alexander", "Jason Taytum", "Giannis Antetokounmpo", "Deandre Ayton", "Ben Simmons", "K OUbre Jr.", "Nikola Vucevic", "Malcom Brogdon", "Duncan Robinson", "TJ Warren", "Hassan Whiteside", "Joe Harris"];
-
-var testTeams = [bs, julien];
-
 async function runStatDriver (teams) {
-  let driver = await new Builder().forBrowser('chrome').build();
-  let dataDict; 
-  let playerList; 
-  let result = [];
-
-  await driver.get('https://www.basketball-reference.com/');
-  for (i =0 ; i < teams.length ; i ++ ) {
-        dataDict = {'trb_per_g' : 0, 'ast_per_g' : 0, 'blk_per_g' : 0, 'stl_per_g' : 0, 'fg3_per_g' : 0, 'fg_per_g' : 0,'fga_per_g' : 0, 'ft_per_g' : 0,'fta_per_g' : 0, 'pts_per_g': 0};
-        playerList = teams[i];
-        dataDict = await runForLoop(dataDict, driver, playerList);
-        // dataDict = await calculateStats(dataDict);
-        dataDict = calculateStats(dataDict);
-        result.push(dataDict);
-  }
-  await driver.quit();
-  return result;
-}
+    let driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless()).build();
+    let dataDict; 
+    let playerList; 
+    let result = [];
+  
+    await driver.get('https://www.basketball-reference.com/');
+    for (i =0 ; i < teams.length ; i ++ ) {
+            dataDict = {'trb_per_g' : 0, 'ast_per_g' : 0, 'blk_per_g' : 0, 'stl_per_g' : 0, 'fg3_per_g' : 0, 'fg_per_g' : 0,'fga_per_g' : 0, 'ft_per_g' : 0,'fta_per_g' : 0, 'pts_per_g': 0};
+            playerList = teams[i];
+            dataDict = await runForLoop(dataDict, driver, playerList);
+            // dataDict = await calculateStats(dataDict);
+            dataDict = calculateStats(dataDict);
+            result.push(dataDict);
+    }
+    await driver.quit();
+    return result;
+}  
 
 // Synchronous Asynchronous for loop for reading players' stats
 async function runForLoop(dataDict, driver, playerList) {
@@ -55,6 +50,7 @@ async function runForLoop(dataDict, driver, playerList) {
 
 
 async function crawlStats(url, dataDict){
+    console.log("Currently crwaling the url of " + url);
     const html = await axios.get(url);
         let $ = cheerio.load(html.data);
         let $dataTable = $("#per_game");
@@ -104,7 +100,6 @@ function gatherStats(entries, dataDict) {
         }
         });
     };
-
 
 function unravelChild(parent) {
     return parent.children[0].children[0].data;

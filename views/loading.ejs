@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("./partials/head"); %>
+    <script src ="/javascripts/autocomplete.js"></script>
+  </head>
+  <body>
+
+    <%- include("./partials/header"); %>
+      <div class="container" style=";">
+      <h1 class="welcome-title d-flex justify-content-center">See who has an advantage!</h1>
+      <p class="d-flex justify-content-center">This page is loading</p>
+    
+
+    </div>
+
+    
+
+
+  </body>
+  <script>
+    ((path="/loading", params, method='post') => {
+
+        // The rest of this code assumes you are not using a library.
+        // It can be made less wordy if you use one.
+        const form = document.createElement('form');
+        form.method = method;
+        form.action = path;
+      
+        for (const key in params) {
+          if (params.hasOwnProperty(key)) {
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = key;
+            hiddenField.value = params[key];
+      
+            form.appendChild(hiddenField);
+          }
+        }
+      
+        document.body.appendChild(form);
+        form.submit();
+      })();      
+  </script>
+</html>
+

@@ -1,4 +1,5 @@
 var playerNames = [
+    'Tyler Herro', 'Kendrick Nunn', 'Bam Adebayo', 
     'Kawhi Leonard',      'Giannis Antetokounmpo', 'Stephen Curry',
     'LeBron James',       'James Harden',          'Nikola Jokic',
     'Joel Embiid',        'Damian Lillard',        'Anthony Davis',
@@ -33,6 +34,8 @@ var playerNames = [
     'Patrick Beverley',   'Kyle Kuzma',            'Marcus Smart',
     'Rudy Gay',           'Jeff Teague',           'Derrick White',
     'Marvin Bagley III'];
+
+var managerNames = ["BumSu", "Anthony", "Darren", "Matt", "Robin", "Julien"];
 
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
