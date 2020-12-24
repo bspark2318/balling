@@ -1,0 +1,13 @@
+<div class="autocomplete managers">
+    <div>
+      <span for="managerName"><%= rightManager %></span>
+    </div>
+</div>
+  
+<% for (let i=0; i < numCategories ; i++) { %>
+  <div class="categories">
+    <div>
+      <input id=<%= "playerName_1" + i %>  class="form-control playerNameInput leftTeam " type="text" placeholder="Player Name" name="playerName" style="width:300px;" value="Seth Curry" required> 
+    </div>
+  </div>
+<% }; %>   

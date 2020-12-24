@@ -1,13 +1,13 @@
 <div class="autocomplete managers">
   <div>
     <label for="managerName">Manager Name:</label>
-    <input id="managerName_1" class="form-control managerNameInput" type="text" placeholder="Manager Name" name="managerName" style="width:300px;" value="" affiliatedTeam="leftTeam" required>   
+    <input id="managerName_1" class="form-control managerNameInput" type="text" placeholder="Manager Name" name="managerName" style="width:300px;" value="" affiliatedTeam="leftTeam">   
   </div>
 </div>
 
 <% for (let i=0; i < numPlayers ; i++) { %>
       <div class="autocomplete players">
         <label for="playerName">Player Name:</label>
-        <input id=<%= "playerName_1" + i %>  class="form-control playerNameInput leftTeam " type="text" placeholder="Player Name" name="playerName" style="width:300px;" value="" required> 
+        <input id=<%= "playerName_1" + i %>  class="form-control playerNameInput leftTeam " type="text" placeholder="Player Name" name="playerName" style="width:300px;" value="Seth Curry" required> 
       </div>
 <% }; %>   

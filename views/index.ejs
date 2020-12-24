@@ -16,9 +16,7 @@
       <form autocomplete="off" action="/" method="POST">     
         <div class="row">
           <div class="col-sm-4" style="min-height: 100px;">
-            <% if (numPlayers != 0) { %>
-              <%- include("./functions/createInputsColumnOne"); %>
-            <% } %>
+            <%- include("./functions/createInputsColumnOne"); %>
           </div>
           <div class="col-sm-1"></div>  
           <div class="col-sm-2 justify-content-center d-flex" style="">
@@ -26,9 +24,7 @@
           </div>
           <div class="col-sm-1" ></div>
           <div class="col-sm-4" style=" padding-bottom: 60px;">
-            <% if (numPlayers != 0) { %>
               <%- include("./functions/createInputsColumnTwo"); %>
-            <% } %>
           </div>
         </div>
         </div>
