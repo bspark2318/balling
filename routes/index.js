@@ -73,7 +73,7 @@ function reMapStats(stats, statCategories, statMap) {
   let newStatList = [];
   
   statCategories.forEach( (item, index) => {
-    newValue = newStatMap[item];
+    newValue = Number(newStatMap[item]).toFixed(2);
     newStatList.push(newValue);
   }) 
 
