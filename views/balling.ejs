@@ -3,6 +3,7 @@
   <head>
     <%- include("./partials/head"); %>
     <script src ="/javascripts/autocomplete.js"></script>
+    <link rel='stylesheet' href='/stylesheets/balling.css'/>
   </head>
   <body>
 
@@ -12,18 +13,49 @@
       <p class="d-flex justify-content-center">Welcome </p>
       
       <div class="row">
-        <div class="col-sm-4" style="min-height: 100px;">
-          <%- include("./functions/createStatBoxColumnOne"); %>
+        <div class="col-sm-4 column" style="min-height: 100px;">
+          <div class="column-header">
+            <div class="actual-header">
+              <span for="column-header"><%= leftManager %></span>
+            </div>
+          </div>
+          
+          <% for (let i=0; i < numCategories ; i++) { %>
+          <div class="categories">
+              <%= leftTeam[i] %>
+          </div>
+          <% }; %>    
         </div>
-        <div class="col-sm-1">
-        </div>  
-        <div class="col-sm-2 justify-content-center d-flex" style="">
-        
+        <div class="col-sm-1"></div>  
+        <div class="col-sm-2 column" style="">
+          <div class="column-header">
+            <div>
+              <span for="column-header">Categories</span>
+            </div>
+          </div>
+          
+          <% for (let i=0; i < numCategories ; i++) { %>
+          <div class="categories">
+            <div>
+              <strong><%= statCategories[i] %></strong>
+            </div>
+          </div>
+          <% }; %>
         </div>
-        <div class="col-sm-1" >
-        </div>
-        <div class="col-sm-4" style=" padding-bottom: 60px;">
-          <%- include("./functions/createStatBoxColumnTwo"); %>
+        <div class="col-sm-1" ></div>
+        <div class="col-sm-4 column" style=" padding-bottom: 60px;">
+          <div class="column-header">
+            <div>
+              <span for="column-header"><%= rightManager %></span>
+            </div>
+          </div>
+          <% for (let i=0; i < numCategories ; i++) { %>
+          <div class="categories">
+            <div>
+              <%= rightTeam[i] %>
+            </div>
+          </div>
+          <% }; %>
         </div>
       </div>
 

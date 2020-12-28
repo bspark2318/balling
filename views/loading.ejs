@@ -9,22 +9,16 @@
     <%- include("./partials/header"); %>
     
     <div class="" style="position: fixed; top:35%; left:45%">
-        <p class="" style="text-align: center; font-size:30px;" >Loading</p>
+        <div class="typewriter" style="padding-bottom: 15px;"> 
+          <h1 style="text-align: center; font-size:30px;" >Loading...</h1>
+        </div>
         <section class="loading">
           <span class="loading__anim" ></span>
         </section>
     </div>
-    </div>
-
-    
-
-
   </body>
   <script>
     ((path="/loading", params, method='post') => {
-
-        // The rest of this code assumes you are not using a library.
-        // It can be made less wordy if you use one.
         const form = document.createElement('form');
         form.method = method;
         form.action = path;
