@@ -2,7 +2,7 @@
 <html>
   <head>
     <%- include("./partials/head"); %>
-    <script src ="/javascripts/autocomplete.js"></script>
+    <script src ="/javascripts/ballingFunctionalities.js"></script>
     <link rel='stylesheet' href='/stylesheets/balling.css'/>
   </head>
   <body>
@@ -21,10 +21,15 @@
           </div>
           
           <% for (let i=0; i < numCategories ; i++) { %>
-          <div class="categories">
+          <div class="categories">    
+            <span class="left-team-data">
               <%= leftTeam[i] %>
+            </span>
           </div>
           <% }; %>    
+          <div class="left-total-wins categories">
+
+          </div>
         </div>
         <div class="col-sm-1"></div>  
         <div class="col-sm-2 column" style="">
@@ -41,6 +46,10 @@
             </div>
           </div>
           <% }; %>
+          <div class="categories">
+            <strong>Total Wins</strong>
+          </div>
+          <button id="backIndex" class="btn btn-danger" style="" href="/">Return to Index Page</button>
         </div>
         <div class="col-sm-1" ></div>
         <div class="col-sm-4 column" style=" padding-bottom: 60px;">
@@ -52,14 +61,18 @@
           <% for (let i=0; i < numCategories ; i++) { %>
           <div class="categories">
             <div>
+              <span class="right-team-data">
               <%= rightTeam[i] %>
+              </span>
             </div>
           </div>
           <% }; %>
+          <div class="right-total-wins categories">
+          </div>
         </div>
       </div>
 
-      <button id="backIndex" class="btn btn-danger" href="/">Return to Index Page</button> 
+ 
 
     </div>
   </body>

@@ -46,14 +46,14 @@ router.post('/loading', async function(req, res) {
 
 router.get('/balling', function(req, res) {
     // Set up
-    // let statMap = { "trb_per_g": "Rebounds", "ast_per_g": "Assists", "blk_per_g": "Blocks", "stl_per_g": "Steals", "fg3_per_g": "Three Pointers", "pts_per_g": "Points", "fg_percentage": "Field Goal %", "ft_percentage": "Free Throw %"};
-    // let resultStats = req.session.stats;
-    // let managers = req.session.managers;
-    // let leftManager = managers[0] === "" ? "Home Team" : managers[0] + "'s Team";
-    // let rightManager = managers[1] === "" ? "Away Team" : managers[1] + "'s Team";
+    let statMap = { "trb_per_g": "Rebounds", "ast_per_g": "Assists", "blk_per_g": "Blocks", "stl_per_g": "Steals", "fg3_per_g": "Three Pointers", "pts_per_g": "Points", "fg_percentage": "Field Goal %", "ft_percentage": "Free Throw %"};
+    //let resultStats = req.session.stats;
+    //let managers = req.session.managers;
+    //let leftManager = managers[0] === "" ? "Home Team" : managers[0] + "'s Team";
+    //let rightManager = managers[1] === "" ? "Away Team" : managers[1] + "'s Team";
     let statCategories = ["Points", "Assists", "Three Pointers", "Steals", "Free Throw %", "Rebounds", "Blocks", "Field Goal %" ];  
-    // let leftTeam = reMapStats(resultStats[0], statCategories, statMap);
-    // let rightTeam = reMapStats(resultStats[1], statCategories, statMap);
+    //let leftTeam = reMapStats(resultStats[0], statCategories, statMap);
+    //let rightTeam = reMapStats(resultStats[1], statCategories, statMap);
     let numCategories = statCategories.length;
     //let context = {numCategories: numCategories, statCategories: statCategories, leftManager: leftManager, rightManager: rightManager, leftTeam: leftTeam, rightTeam:rightTeam};
     let context = {numCategories: numCategories, statCategories: statCategories, leftManager: "leftManager", rightManager: "rightManager", leftTeam: [1,2,3,4,5,6,7,8], rightTeam: [0, 1,2,3,4,5,6,7]};
