@@ -39,6 +39,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(8000);
+app.listen(3030);
 
 module.exports = app;

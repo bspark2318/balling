@@ -1,4 +1,5 @@
 var playerNames = [
+    'Darius Garland', "Bojan Bogdanovic",
     'Tyler Herro', 'Kendrick Nunn', 'Bam Adebayo', 
     'Kawhi Leonard',      'Giannis Antetokounmpo', 'Stephen Curry',
     'LeBron James',       'James Harden',          'Nikola Jokic',

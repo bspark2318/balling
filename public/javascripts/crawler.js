@@ -7,6 +7,8 @@ const { sortedLastIndexOf } = require("lodash");
 
 async function runStatDriver (teams) {
     let driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless()).build();
+    // For testing purposes
+    //let driver = await new Builder().forBrowser('chrome').build();
     let dataDict; 
     let playerList; 
     let result = [];
@@ -50,7 +52,9 @@ async function runForLoop(dataDict, driver, playerList) {
 
 
 async function crawlStats(url, dataDict){
+    console.log("=======================================");
     console.log("Currently crwaling the url of " + url);
+    console.log("=======================================");
     const html = await axios.get(url);
         let $ = cheerio.load(html.data);
         let $dataTable = $("#per_game");

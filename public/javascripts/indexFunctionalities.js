@@ -1,8 +1,8 @@
-var managerPlayersMap = {"bumsu" : ["Ja Morant", "Jrue Holiday", "Kevin Durant", "Brandon Ingram", "Nikola Jokic", "D'Angelo Russel", "Blake Griffin", "Julius Randle", "Kevin Love", "Buddy Hield", "Gordon Hayward", "Tyler Herro", "DeMarcus Cousin"], 
+var managerPlayersMap = {"bumsu" : ["Victor Oladipo", "Jrue Holiday", "Kevin Durant", "Brandon Ingram", "Nikola Jokic", "D'Angelo Russel", "Darius Garland", "Julius Randle", "Buddy Hield", "Gordon Hayward", "Bojan Bogdanovic", "DeMarcus Cousin", 'Terry Rozier'], 
                         "anthony" : [], 
                         "darren" : [], 
                         "matt" : [],
-                        "robin" : [], 
+                        "robin" : ["Deandre Ayton", "Devin Booker", "Jaylen Brown", "Kawhi Leonard", "LeBron James", "Fred VanVleet", "John Collins", "Donovan Mitchell", "CJ McCollum", "Shai Gilgeous-Alexander", "James Harden", "Zion Williamson", "Christian Wood"], 
                         "julien" : ["Damian Lillard", "Shai Gilgeous-Alexander", "Jason Taytum", "Giannis Antetokounmpo", "Deandre Ayton", "Ben Simmons", "K OUbre Jr.", "Nikola Vucevic", "Malcom Brogdon", "Duncan Robinson", "TJ Warren", "Hassan Whiteside", "Joe Harris"],
                         "" : ["", "","","","","","","","","","","","",""], 
 };
