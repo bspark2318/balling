@@ -38,6 +38,11 @@ router.get('/loading', function(req, res) {
   res.render('loading');
 })
 
+router.get('/chat', function(req, res) {
+  res.render('chat');
+})
+
+
 let loadingPostArguments = {
   '/balling': statDriver.runStatDriver,
   '2': placeHolder,
