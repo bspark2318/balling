@@ -109,4 +109,36 @@ function unravelChild(parent) {
     return parent.children[0].children[0].data;
 }
 
+
+
+async function getWeeklySchedule (teams) {
+    let url = 'https://www.google.com/search?newwindow=1&client=firefox-b-d&sxsrf=ALeKk014dQQOOzlBL1D1iuSETAu1Npf5aA%3A1610875567794&ei=rwIEYPyHMLWHr7wP5MGBCA&q=2020+2021+nba+full+scheudle&oq=2020+2021+nba+full+scheudle&gs_lcp=CgZwc3ktYWIQAzIECCEQFToECAAQRzoICAAQyQMQkQI6BQgAEJECOgIIADoCCC46BwgAEMkDEEM6BAgAEEM6BQgAEMkDOgkIABDJAxAWEB46BggAEBYQHjoICCEQFhAdEB46BAghEApQg5eiAljTvqICYLS_ogJoAnACeACAAaIBiAHwHJIBBDAuMjiYAQCgAQGqAQdnd3Mtd2l6yAEIwAEB&sclient=psy-ab&ved=0ahUKEwi8m_uP06LuAhW1w4sBHeRgAAEQ4dUDCAw&uact=5#sie=lg;/g/11jn2_x2b4;3;/m/05jvx;mt;fp;1;;';
+    const html = await axios.get(url);
+    let $ = cheerio.load(html.data);
+    
+    let $dataTable = $(".KAIX8d");
+    console.log($dataTable);    
+    console.log("===============================================");
+    console.log("===============================================");
+    console.log($dataTable.children());    
+    // let gamesPlayed = 0;
+    // let dataYear = 2021;
+    // while (gamesPlayed <= 10) {
+    //     dataYear -= 1; 
+    //     dataRow = $dataTable.find(`tr[id="per_game.${dataYear}"]`);
+    //     gamesPlayed = dataRow.find('td[data-stat="g"]').text();    
+    // }   
+        
+    // let dataEntries = dataRow.children();
+    // gatherStats(dataEntries, dataDict);
+}
+
+
+
+
+getWeeklySchedule([]);
+
+
+
+
 exports.runStatDriver = runStatDriver;
