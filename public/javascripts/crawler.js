@@ -112,25 +112,24 @@ function unravelChild(parent) {
 
 
 async function getWeeklySchedule (teams) {
-    let url = 'https://www.google.com/search?newwindow=1&client=firefox-b-d&sxsrf=ALeKk014dQQOOzlBL1D1iuSETAu1Npf5aA%3A1610875567794&ei=rwIEYPyHMLWHr7wP5MGBCA&q=2020+2021+nba+full+scheudle&oq=2020+2021+nba+full+scheudle&gs_lcp=CgZwc3ktYWIQAzIECCEQFToECAAQRzoICAAQyQMQkQI6BQgAEJECOgIIADoCCC46BwgAEMkDEEM6BAgAEEM6BQgAEMkDOgkIABDJAxAWEB46BggAEBYQHjoICCEQFhAdEB46BAghEApQg5eiAljTvqICYLS_ogJoAnACeACAAaIBiAHwHJIBBDAuMjiYAQCgAQGqAQdnd3Mtd2l6yAEIwAEB&sclient=psy-ab&ved=0ahUKEwi8m_uP06LuAhW1w4sBHeRgAAEQ4dUDCAw&uact=5#sie=lg;/g/11jn2_x2b4;3;/m/05jvx;mt;fp;1;;';
+    let url = 'https://www.espn.com/nba/schedule';    
     const html = await axios.get(url);
     let $ = cheerio.load(html.data);
-    
-    let $dataTable = $(".KAIX8d");
-    console.log($dataTable);    
-    console.log("===============================================");
-    console.log("===============================================");
-    console.log($dataTable.children());    
-    // let gamesPlayed = 0;
-    // let dataYear = 2021;
-    // while (gamesPlayed <= 10) {
-    //     dataYear -= 1; 
-    //     dataRow = $dataTable.find(`tr[id="per_game.${dataYear}"]`);
-    //     gamesPlayed = dataRow.find('td[data-stat="g"]').text();    
-    // }   
+    let dates = [];
+    let weeklySchedule = [];
+    let $dates = $(".table-caption");
+    for (i = 0 ; i < $dates.length ; i++ ) {   
+        $date = $($dates[i]);
+        dates.push($date.text());
         
-    // let dataEntries = dataRow.children();
-    // gatherStats(dataEntries, dataDict);
+        scheduleContainer = $date.next();
+        
+        teamName = $date
+        
+    }
+    $day = $($dates[0]);
+    console.log($day.next());
+    
 }
 
 
@@ -142,3 +141,21 @@ getWeeklySchedule([]);
 
 
 exports.runStatDriver = runStatDriver;
+
+
+
+
+{/* <div class="lr-imso-scroll GVj7ae imso-medium-font qJnhT imso-ani" aria-level="3" role="heading" jsname="sT19N" style="">내일</div>
+<div aria-level="3" role="heading" jsname="sT19N" class="GVj7ae imso-medium-font qJnhT imso-ani" style="">1. 19. (화)</div>
+
+
+
+
+
+
+
+body table class KAIX8d
+team     but not td         /m/0jmgb    
+date <div class="imspo_mt__pm-inf imspo_mt__pm-infc imspo_mt__date imso-medium-font">내일</div>     imspo_mt__date
+ */}
+
