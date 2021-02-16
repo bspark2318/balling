@@ -111,51 +111,42 @@ function unravelChild(parent) {
 
 
 
-async function getWeeklySchedule (teams) {
+async function getWeeklySchedule () {
     let url = 'https://www.espn.com/nba/schedule';    
     const html = await axios.get(url);
     let $ = cheerio.load(html.data);
     let dates = [];
     let weeklySchedule = [];
     let $dates = $(".table-caption");
+    let teamName = '';
+    let daySchedule = [];
+    
     for (i = 0 ; i < $dates.length ; i++ ) {   
+        daySchedule = [];
         $date = $($dates[i]);
         dates.push($date.text());
         
         scheduleContainer = $date.next();
-        
-        teamName = $date
-        
+        homeTeamContainers = scheduleContainer.find('tbody > tr > td > a[class="team-name"] > span');
+        for (j = 0 ; j < homeTeamContainers.length ; j ++) {
+            teamName = homeTeamContainers[j].children[0].data;
+            daySchedule.push(teamName);
+        }
+
+        awayTeamContainers = scheduleContainer.find('tbody > tr > td > div > a[class="team-name"] > span');
+        for (k = 0 ; k < awayTeamContainers.length ; k ++) {
+            teamName = awayTeamContainers[k].children[0].data;
+            daySchedule.push(teamName);
+        }
+
+        weeklySchedule.push(daySchedule);
     }
-    $day = $($dates[0]);
-    console.log($day.next());
-    
+
 }
 
+let allNBATeams = ['Chicago','Houston','Atlanta','Philadelphia','Cleveland','Miami','Brooklyn','Indiana','Washington','New York','Utah','Golden State','LA','Sacramento','Denver','New Orleans','Toronto','Los Angeles','Portland','Boston','Memphis','Milwaukee','Minnesota','Oklahoma City','Phoenix','San Antonio','Detroit','Charlotte','Orlando','Dallas'].sort();
 
 
-
-getWeeklySchedule([]);
-
-
-
+getWeeklySchedule();
 
 exports.runStatDriver = runStatDriver;
-
-
-
-
-{/* <div class="lr-imso-scroll GVj7ae imso-medium-font qJnhT imso-ani" aria-level="3" role="heading" jsname="sT19N" style="">내일</div>
-<div aria-level="3" role="heading" jsname="sT19N" class="GVj7ae imso-medium-font qJnhT imso-ani" style="">1. 19. (화)</div>
-
-
-
-
-
-
-
-body table class KAIX8d
-team     but not td         /m/0jmgb    
-date <div class="imspo_mt__pm-inf imspo_mt__pm-infc imspo_mt__date imso-medium-font">내일</div>     imspo_mt__date
- */}
-
