@@ -4,7 +4,8 @@ const { result } = require('lodash');
 const url = require('url');
 
 // Require the scaper to use in router
-let statDriver = require('../public/javascripts/crawler');
+let crawler = require('../public/javascripts/crawler');
+
 var router = express.Router();
 var numPlayers = 13;
 
@@ -44,7 +45,7 @@ router.get('/chat', function(req, res) {
 
 
 let loadingPostArguments = {
-  '/balling': statDriver.runStatDriver,
+  '/balling': crawler.runStatDriver,
   '2': placeHolder,
 };
 
@@ -95,6 +96,54 @@ function reMapStats(stats, statCategories, statMap) {
   }) 
 
   return newStatList;
+}
+
+
+let allNBATeamsNames = ['Chicago','Houston','Atlanta','Philadelphia','Cleveland','Miami','Brooklyn','Indiana','Washington','New York','Utah','Golden State','LA','Sacramento','Denver','New Orleans','Toronto','Los Angeles','Portland','Boston','Memphis','Milwaukee','Minnesota','Oklahoma City','Phoenix','San Antonio','Detroit','Charlotte','Orlando','Dallas'].sort();
+let allNBATeamsIndex = {"Atlanta": 0,  "Boston": 1,   "Brooklyn": 2, "Charlotte": 3,"Chicago": 4,  "Cleveland": 5,"Dallas": 6,"Denver": 7,"Detroit": 8,'Golden State': 9,"Houston": 10,"Indiana": 11,"LA": 12,'Los Angeles': 13,"Memphis": 14,"Miami": 15,"Milwaukee": 16,"Minnesota": 17,'New Orleans': 18,'New York': 19,'Oklahoma City': 20,"Orlando": 21,"Philadelphia": 22,"Phoenix": 23,"Portland": 24,"Sacramento": 25,'San Antonio': 26,"Toronto": 27,"Utah": 28,"Washington": 29};
+
+
+// Routing for Scheduling
+router.get('/schedule', async function(req, res) {
+  crawlerResult = await crawler.getWeeklySchedule();
+  dates = crawlerResult[0];
+  newDates = [];
+  dates.forEach((date) => {
+    newDates.push(date.split(", "));
+  });
+
+  weekSchedule = crawlerResult[1];
+  table = createTableStructure(weekSchedule);
+  let context = {table: table, dates: newDates, teams: allNBATeamsNames};
+  res.render('schedule', context);
+})
+
+async function hello () {
+  crawlerResult = await crawler.getWeeklySchedule();
+  dates = crawlerResult[0];
+  newDates = [];
+  dates.forEach((date) => {
+    newDates.push(date.split(", "));
+  });
+  return newDates;
+}
+
+function createTableStructure (weekSchedule) {
+  
+  let table = [];
+  for (i = 0 ; i <= 30 ; i ++) {
+    table.push(Array.apply(null, new Array(7)).map(Number.prototype.valueOf,0));
+  }
+
+  let columnIndex = 0;
+  weekSchedule.forEach((daySchedule) => {
+    daySchedule.forEach(team => {
+      rowIndex = allNBATeamsIndex[team] ;
+      table[rowIndex][columnIndex] = 1;
+    })
+    columnIndex ++;
+  })
+  return table;
 }
 
 module.exports = router;
