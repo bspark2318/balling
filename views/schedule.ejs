@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("./partials/head"); %>
+    <link rel="stylesheet" href="/stylesheets/balling.css" />
+    <link rel="stylesheet" href="/stylesheets/schedule.css" />
+  </head>
+  <body>
+    <%- include("./partials/header"); %>
+    <div class="container" style=" ;">
+      <h1 class="welcome-title d-flex justify-content-center">
+        Time Table of Teams
+      </h1>
+      <div class="table">
+      <table cellspacing="0" cellpadding="0">
+          <th>
+            <% for (let i=0; i < dates.length ; i++) { %>
+                <td class="schedule">
+                    <span><%= dates[i][0] %></span> 
+                    <span><%= dates[i][1] %></span> 
+                </td>
+                <% }; %>    
+          </th>
+          <% for (let j = 0; j < table.length ; j ++)  { %>
+          <tr>
+            <td class="<%= j % 2 == 1 ? 'team-name odd' : 'team-name even' %>"><%= teams[j] %></td>
+            <% for (let k =0 ; k < table[j].length; k++) { %> 
+                <% if (table[j][k] == 1) { %>
+                    <td class="<%= j % 2 == 1 ? 'schedule playing-yes odd' : 'schedule playing-yes even' %>"></td>
+                <% } else { %> 
+                    <td class="<%= j % 2 == 1 ? 'schedule playing-no odd' : 'schedule playing-no even' %>"></td>
+                <% }; %> 
+            <% }; %>       
+          </tr>
+
+          <% }; %>    
+      </table>
+    </div>
+    </div>
+  </body>
+</html>

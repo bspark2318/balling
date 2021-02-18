@@ -141,12 +141,8 @@ async function getWeeklySchedule () {
 
         weeklySchedule.push(daySchedule);
     }
-
+    return [dates, weeklySchedule]
 }
 
-let allNBATeams = ['Chicago','Houston','Atlanta','Philadelphia','Cleveland','Miami','Brooklyn','Indiana','Washington','New York','Utah','Golden State','LA','Sacramento','Denver','New Orleans','Toronto','Los Angeles','Portland','Boston','Memphis','Milwaukee','Minnesota','Oklahoma City','Phoenix','San Antonio','Detroit','Charlotte','Orlando','Dallas'].sort();
-
-
-getWeeklySchedule();
-
 exports.runStatDriver = runStatDriver;
+exports.getWeeklySchedule = getWeeklySchedule;
